@@ -16,13 +16,13 @@ import torch  # 导入PyTorch主库
 from torch import nn, optim  # 从torch中导入神经网络模块和优化器模块
 import copy  # 导入copy模块，用于深拷贝模型参数
 import pandas as pd  # 导入pandas库，用于数据处理和分析
-from VGG_model import VGG16
+from model import VGG16
 
 
-def train_val_date_load():
+def train_val_data_load():
     # 加载FashionMNIST训练集，并进行必要的预处理
     train_dataset = FashionMNIST(
-        root="./data",  # 数据集存储路径
+        root="./FashionMNIST",  # 数据集存储路径
         train=True,  # 指定加载训练集
         download=True,  # 如果本地没有数据则自动下载
         transform=transforms.Compose(
@@ -170,7 +170,7 @@ def train_model_process(model, train_loader, val_loader, epochs=10):
     )  # 打印训练完成信息和最佳验证准确率
 
     torch.save(
-        model.state_dict(), "./models/vgg16_net_best_model.pth"
+        model.state_dict(), "params/vgg16_net_best_model.pth"
     )  # 保存最终模型参数到文件
     train_process = pd.DataFrame(
         data={
@@ -220,6 +220,6 @@ def matplot_acc_loss(train_process):
 
 
 if __name__ == "__main__":  # 如果当前脚本作为主程序运行
-    traindatam, valdata = train_val_date_load()  # 加载训练集和验证集
+    traindatam, valdata = train_val_data_load()  # 加载训练集和验证集
     result = train_model_process(VGG16(), traindatam, valdata, 10)
     matplot_acc_loss(result)  # 绘制训练和验证的损失及准确率曲线
