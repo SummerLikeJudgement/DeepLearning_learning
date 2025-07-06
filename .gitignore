@@ -172,8 +172,9 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
-# unet图片
-VOC2007
-result
-test_image
-train_image
+# unet训练资源
+VOC2007/
+result/
+test_image/
+train_image/
+params/
