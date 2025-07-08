@@ -216,7 +216,7 @@ def matplot_acc_loss(train_process):
     plt.tight_layout()  # 自动调整子图间距
     plt.ion()  # 关闭交互模式，防止图像自动关闭
     plt.show()  # 显示所有图像
-    plt.savefig("./models/vgg16_net_output.png")
+    plt.savefig("loss_acc/vgg16_net_output.png")
 
 
 if __name__ == "__main__":  # 如果当前脚本作为主程序运行
