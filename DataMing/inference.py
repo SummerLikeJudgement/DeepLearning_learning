@@ -29,8 +29,8 @@ warnings.filterwarnings('ignore')
 
 # Append inference specific configuration
 class Config(TrainConfig):
-    DATA_DIR = '/kaggle/input/csiro-biomass'
-    MODEL_DIR = '/kaggle/input/csiro/pytorch/default/1' 
+    DATA_DIR = "dataset/csiro-biomass'"
+    MODEL_DIR = "checkpoints"
     
     FOLDS_TO_INFER = [0, 1, 2, 3, 4] 
 
