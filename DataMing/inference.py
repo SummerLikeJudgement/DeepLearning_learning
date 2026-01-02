@@ -29,7 +29,7 @@ warnings.filterwarnings('ignore')
 
 # Append inference specific configuration
 class Config(TrainConfig):
-    DATA_DIR = "dataset/csiro-biomass'"
+    DATA_DIR = "dataset/csiro-biomass"
     MODEL_DIR = "checkpoints"
     
     FOLDS_TO_INFER = [0, 1, 2, 3, 4] 
