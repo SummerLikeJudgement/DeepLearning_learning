@@ -1,8 +1,9 @@
 import torch
+import os
 
 class Config:
     # Paths
-    DATA_DIR = "dataset\csiro-biomass"
+    DATA_DIR = os.path.join("dataset", "csiro-biomass")
     OUTPUT_DIR = 'checkpoints'
     
     # Model
