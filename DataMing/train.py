@@ -119,7 +119,10 @@ def validate(model, loader, criterion):
     # 平均绝对误差
     mae = mean_absolute_error(all_targets, all_preds)
     
-    return total_loss / len(loader), rmse, mae
+    # 计算加权R²
+    r2 = ut.weighted_r2_score(all_targets, all_preds, Config.TARGET_WEIGHTS)
+    
+    return total_loss / len(loader), rmse, mae, r2
 
 # 训练函数
 def train_model():
@@ -236,7 +239,7 @@ def train_model():
                 model, train_loader, criterion_biomass, criterion_aux_reg,
                 criterion_aux_cls, optimizer
             )
-            val_loss, val_rmse, val_mae = validate(model, val_loader, criterion_biomass)
+            val_loss, val_rmse, val_mae, val_r2 = validate(model, val_loader, criterion_biomass)
             
             train_losses.append(biomass_loss) # only report the biomass loss for fair comparison with the val_losses
             val_losses.append(val_loss)
@@ -248,7 +251,7 @@ def train_model():
                 print(f"  Train - Total: {train_loss:.4f} | Biomass: {biomass_loss:.4f} | Aux: {aux_loss:.4f}")
             else:
                 print(f"  Train Loss: {train_loss:.4f}")
-            print(f"  Val   - Loss: {val_loss:.4f} | RMSE: {val_rmse:.4f} | MAE: {val_mae:.4f}")
+            print(f"  Val   - Loss: {val_loss:.4f} | RMSE: {val_rmse:.4f} | MAE: {val_mae:.4f} | R²: {val_r2:.4f}")
             
             if val_loss < best_val_loss:
                 best_val_loss = val_loss
@@ -265,8 +268,9 @@ def train_model():
                     },
                     'epoch': epoch,
                     'val_loss': val_loss,
-                    'val_rmse': val_rmse,
-                    'val_mae': val_mae
+                'val_rmse': val_rmse,
+                'val_mae': val_mae,
+                'val_r2': val_r2
                 }
                 # 保存最佳模型
                 torch.save(checkpoint, os.path.join(Config.OUTPUT_DIR, f'best_model_fold{fold_idx}.pth'))
