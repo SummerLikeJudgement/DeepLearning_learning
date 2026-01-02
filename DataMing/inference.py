@@ -112,8 +112,8 @@ def load_models_for_ensemble(folds):
             with open(preprocessing_path, 'rb') as f:
                 preprocessing_info = pickle.load(f)
             
-            # Load checkpoint
-            checkpoint = torch.load(model_path, map_location=Config.DEVICE)
+            # Load checkpoint - PyTorch 2.6+ requires weights_only=False for checkpoints with numpy types
+            checkpoint = torch.load(model_path, map_location=Config.DEVICE, weights_only=False)
             
             model_config = checkpoint['config']
             
