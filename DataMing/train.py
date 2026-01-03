@@ -13,7 +13,7 @@ import utils as ut
 import data_loader as dl
 from config import Config
 from model import MultiTaskBiomassModel
-from loss import WeightedMSELoss
+from loss import WeightedMSELoss, WeightedR2Loss
 
 warnings.filterwarnings('ignore')
 
@@ -212,7 +212,7 @@ def train_model():
         print(f"Total parameters: {sum(p.numel() for p in model.parameters()):,}")
         
         # 定义损失函数
-        criterion_biomass = WeightedMSELoss(Config.TARGET_WEIGHTS, Config.DEVICE) 
+        criterion_biomass = WeightedR2Loss(Config.TARGET_WEIGHTS, Config.DEVICE) 
         criterion_aux_reg = nn.MSELoss()
         criterion_aux_cls = nn.CrossEntropyLoss()
         

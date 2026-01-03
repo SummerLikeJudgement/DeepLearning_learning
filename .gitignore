@@ -179,3 +179,7 @@ Unet/result
 Unet/test_image
 Unet/train_image
 Unet/params
+
+# DataMing Proj训练资源
+DataMing/dataset
+DataMing/checkpoints
